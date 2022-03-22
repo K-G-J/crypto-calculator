@@ -5,7 +5,8 @@ export default function Portfolio({ portfolio }) {
 
   const total = portfolio.reduce((total, current) => total + current.value, 0)
   const formatted_total = total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
-  const portfolioItems = portfolio.map((item, i) => <PortfolioItem key={i} item={item} />)
+  portfolio.forEach((item, i) => {item.id = i + 1});
+  const portfolioItems = portfolio.map((item, i) => <PortfolioItem key={i} item={item} id={item.id}/>)
 
   return (
       <div>

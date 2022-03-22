@@ -1,19 +1,7 @@
 import React from 'react'
-// import SearchResult from './SearchResult'
 
 export default function Search({ name, search_results, handleChange, handleSelect }) {
   
-  // const Search = (search_results) => {
-  //   search_results.map(curr => {
-  //     return (
-  //       <SearchResult
-  //         key={curr.id}
-  //         currency={curr}
-  //         handleSelect={handleSelect}
-  //       />
-  //     )
-  //   })
-  // }
 
   return (
     <div>
@@ -27,7 +15,9 @@ export default function Search({ name, search_results, handleChange, handleSelec
           {search_results.map
             (curr => (<li key={curr.id} className='currency-list-item'
               onClick={(e) => handleSelect(curr, e)}>
-            <a href='#' data-id={curr.id} className='currency'><span>{curr.name}</span> <span>{curr.currency_symbol}</span></a>
+              <a href='#' data-id={curr.id} className='currency'>
+                <span>{curr.name}</span> <span>{curr.currency_symbol}</span>
+              </a>
           </li>))}
         </div>
       </form>

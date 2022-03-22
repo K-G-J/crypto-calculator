@@ -29,7 +29,7 @@ export default function PortfolioContainer() {
   
   const handleChange = async (e) => {
     try {
-      const data = await axios.post('http://localhost:3000/search', { search: e.target.value })
+      const data = await axios.post('https://crypto-calculator-rails.herokuapp.com/search', { search: e.target.value })
       setInfo(state => ({ ...state, search_results: [...data.data.currencies] }))
     } catch(err) {
       console.log(err)
@@ -47,7 +47,8 @@ const handleSelect = (curr, e) => {
     try {
       let currency = info.active_currency
       let amount = info.amount
-      const data = await axios.post('http://localhost:3000/calculate', { id: currency.id, amount: amount })
+      const data = await axios.post('https://crypto-calculator-rails.herokuapp.com/calculate',
+        { id: currency.id, amount: amount })
       let portfolioData = data.data
       setInfo(state => ({
         ...state,

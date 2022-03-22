@@ -3,17 +3,16 @@ import { useState} from 'react'
 export default function PortfolioItem({ item }) {
   const [showBtn, toggleBtn] = useState(true)
 
-  console.log(item.id)
-
   const loadPortfolio = () => {
     let portfolioArr = JSON.parse(localStorage.getItem('portfolio'));
     if (!portfolioArr || !Array.isArray(portfolioArr)) return [];
     else return portfolioArr;
   }
 
-  const handleSave = () => {
+  const handleSave = (item) => {
     let portfolioArr = loadPortfolio();
     item.saved = true
+    item.id = Math.floor(Math.random() * 1000)
     portfolioArr.push(item);
     localStorage.setItem('portfolio', JSON.stringify(portfolioArr))
     toggleBtn(false)
@@ -51,9 +50,9 @@ export default function PortfolioItem({ item }) {
             <div className='text'>${item.value}</div>
           </div>
 
-          <div className='col'>
-            {!item.saved && showBtn && <button className='btn' onClick={handleSave}>Save</button>}
-            {item.saved && <button className='btn' onClick={() => { removeItem(item.id) }}>Remove</button>}
+          <div className='col btns-container'>
+            {!item.saved && showBtn && <button className='btn-save' onClick={() => handleSave(item)}>Save</button>}
+            {item.saved && <button className='btn-remove' onClick={() => { removeItem(item.id) }}>Remove</button>}
           </div>
         </div>
       </div>

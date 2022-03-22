@@ -8,7 +8,7 @@ export default function Calculate({amount, active_currency, handleChange, handle
         <div className='form-group'>
           <label>Enter Amount Owned:</label><br/>
           <input autoComplete='off' type='text' name='amount' placeholder='How much do you own?' className='field'
-            defaultValue={amount} onChange={(e) => handleChange(e)} />
+            value={amount} onChange={(e) => handleChange(e)} />
         </div>
         <div className='form-group'>
           <input type='submit' className='calculate-btn' value='Calculate My Total' />

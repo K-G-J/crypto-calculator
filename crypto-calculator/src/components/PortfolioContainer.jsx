@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Search from './Search'
 import Calculate from './Calculate'
+import Portfolio from './Portfolio'
 import axios from 'axios'
 
 export default function PortfolioContainer() {
+  
+  const [portfolio, setPortfolio] = useState([])
 
   const [info, setInfo] = useState({ 
     portfolio: [],
@@ -11,12 +14,22 @@ export default function PortfolioContainer() {
     active_currency: null,
     amount: ''
   })
+
+  // useEffect(() => {
+  //   loadPortfolio();
+  // }, [info.portfolio])
+
+  const loadPortfolio = () => {
+    let portfolioArr = JSON.parse(localStorage.getItem('portfolio'));
+    console.log(portfolioArr)
+    if (!portfolioArr || !Array.isArray(portfolioArr)) return [];
+    else return portfolioArr;
+  }
+  
   // const [active_currency, setActiveCurrency] = useState(null)
   // const [search_results, setSearch] = useState([])
   // const [amount, setAmount] = useState('')
-  // const [portfolio, setPortfolio] = useState([])
-  
-  // const [calculate, showCalculate] = useState(false)
+
   
 
   const handleChange = async (e) => {
@@ -40,32 +53,44 @@ const handleSelect = (curr, e) => {
       let currency = info.active_currency
       let amount = info.amount
       const data = await axios.post('http://localhost:3000/calculate', { id: currency.id, amount: amount })
+      let portfolioData = data.data
       setInfo(state => ({
         ...state,
-        portfolio: [...state.portfolio, data.data],
-        search_results: [],
-        active_currency: null
+        portfolio: [...state.portfolio, portfolioData],
+        active_currency: null,
+        amount: ''
       }))
+      setPortfolio(state => [...state, portfolioData])
+      localStorage.setItem('portfolio', JSON.stringify([...info.portfolio, portfolioData]))
     } catch (err) {
       console.log(err)
     }
   }
-console.log(info)
+
   const handleAmount = (e) => {
     setInfo(state => ({ ...state, amount: e.target.value }))
   }
 
-  return (
-    <div>
-      {!info.active_currency && <Search
-        search_results={info.search_results}
-        handleChange={handleChange}
-        handleSelect={handleSelect} />}
-      {info.active_currency && <Calculate
+  const searchOrCalculate = info.active_currency ?
+    <Calculate
         amount={info.amount}
         active_currency={info.active_currency}
         handleChange={handleAmount}
-        handleSubmit={handleSubmit} />}
-    </div>
+      handleSubmit={handleSubmit} /> :
+    <Search
+        search_results={info.search_results}
+        handleChange={handleChange}
+        handleSelect={handleSelect} />
+    
+
+  return (
+      <div className='grid'>
+        <div className='left'>
+          {searchOrCalculate}
+        </div>
+        <div className='right'>
+          <Portfolio portfolio={info.portfolio}/>
+        </div>
+      </div>
   )
 }

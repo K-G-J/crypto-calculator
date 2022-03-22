@@ -3,6 +3,9 @@ body {
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   margin: 0;
 }
+.hidden {
+  display: none;
+}
 
 .grid {
   display: grid;
@@ -53,13 +56,35 @@ label {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.025em;
-  background: #6772e5;
+  background: #001628;
+  /* background: #6772e5; */
   text-decoration: none;
   transition: all 0.15s ease;
   margin-top: 18px;
 }
 .calculate-btn:hover {
   margin-top: 15px;
+}
+.btn {
+  cursor: pointer;
+  height: 50px;
+  line-height: 40px;
+  text-align: center;
+  -webkit-box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11),
+    0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  color: #fff;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  background: #001628;
+  /* background: #6772e5; */
+  text-decoration: none;
+  transition: all 0.15s ease;
+  margin-top: 18px;
+  margin-right: 10px;
 }
 
 .profileImg {

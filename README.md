@@ -1,1 +1,1 @@
-# [App}(https://crypto-dex.herokuapp.com/)
+# [App](https://crypto-dex.herokuapp.com/)
